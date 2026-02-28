@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { STATUS_TRANSACAO, STATUS_VARIANT, TIPO_OPERACAO } from "@/lib/api";
-import { IconWallet, IconArrowsExchange, IconReceipt } from "@tabler/icons-react";
+import { IconWallet, IconArrowsExchange } from "@tabler/icons-react";
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("pt-BR", {
@@ -75,21 +75,6 @@ export default function DashboardPage() {
             </CardDescription>
             <CardTitle className="text-2xl">
               {txLoading ? "Cargando..." : numeroDeRegistros}
-            </CardTitle>
-          </CardHeader>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardDescription className="flex items-center gap-2">
-              <IconReceipt className="size-4" />
-              Volumen Total
-            </CardDescription>
-            <CardTitle className="text-2xl">
-              {txLoading
-                ? "Cargando..."
-                : formatCurrency(
-                    transacoes.reduce((sum, t) => sum + t.valorBruto, 0)
-                  )}
             </CardTitle>
           </CardHeader>
         </Card>

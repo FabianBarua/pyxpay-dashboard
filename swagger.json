@@ -1,0 +1,1250 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Pyx Pay API - V1",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://pyxpay.com.br/v1/",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/carteira/cashout": {
+      "post": {
+        "tags": [
+          "Carteira"
+        ],
+        "summary": "Realizar Transferência - Pix",
+        "description": "Permite realizar uma transferência via pix com os dados informados.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.net.DTOs.Transacao.RequestCreateCashout"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Recurso criado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.Transacao.ResponseTransacao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Algum parâmetro obrigratório não foi passado, ou não estão corretos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.Interceptors.BadRequest.BadRequestErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição."
+          },
+          "422": {
+            "description": "Erro de validação da lógica de negocio, a mensagem será retornada na resposta.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.BasicErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com o time de desenvolvimento."
+          }
+        }
+      }
+    },
+    "/carteira/saldo": {
+      "get": {
+        "tags": [
+          "Carteira"
+        ],
+        "summary": "Buscar Saldo Atual",
+        "description": "Retorna o saldo atual da conta (em reais).",
+        "responses": {
+          "200": {
+            "description": "Recurso obtido com sucesso."
+          },
+          "404": {
+            "description": "Recurso não pode ser encontrado.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com time de desenvolvimento."
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição."
+          }
+        }
+      }
+    },
+    "/cotacao/converter-moeda": {
+      "post": {
+        "tags": [
+          "Cotacao"
+        ],
+        "summary": "Converte um valor em reais para a moeda do estabelecimento",
+        "requestBody": {
+          "description": "Requisição contendo o valor em reais a ser convertido",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.net.DTOs.Cotacao.ValorRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recurso obtido com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.Cotacao.ValorConvertidoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com o time de desenvolvimento."
+          }
+        }
+      }
+    },
+    "/cotacao/converter-real": {
+      "post": {
+        "tags": [
+          "Cotacao"
+        ],
+        "summary": "Converte um valor na moeda do estabelecimento para reais",
+        "requestBody": {
+          "description": "Requisição contendo o valor na moeda do estabelecimento a ser convertido",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.net.DTOs.Cotacao.ValorRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.net.DTOs.Cotacao.ValorRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.net.DTOs.Cotacao.ValorRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recurso obtido com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.Cotacao.ValorConvertidoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com o time de desenvolvimento."
+          }
+        }
+      }
+    },
+    "/transacao/boleto": {
+      "post": {
+        "tags": [
+          "Transacao"
+        ],
+        "summary": "Criar Transação - Boleto",
+        "description": "Permite criar uma transação por boleto com os dados informados.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.net.DTOs.Transacao.RequestCreateTransacaoBoleto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Recurso criado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.Transacao.ResponseTransacao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Algum parâmetro obrigratório não foi passado, ou não estão corretos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.Interceptors.BadRequest.BadRequestErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição."
+          },
+          "422": {
+            "description": "Erro de validação da lógica de negocio, a mensagem será retornada na resposta.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.BasicErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com o time de desenvolvimento."
+          }
+        }
+      }
+    },
+    "/transacao/cartao": {
+      "post": {
+        "tags": [
+          "Transacao"
+        ],
+        "summary": "Criar Transação - Cartão",
+        "description": "Permite criar uma transação por cartão com os dados informados.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransacaoLinkDto.RequestCreateLinkThreeds"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Recurso Criado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.Controllers.TransacaoController+ResponseLinkPagamento"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Algum parâmetro obrigatório não foi passado, ou os parâmetros passados não estão corretos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.Interceptors.BadRequest.BadRequestErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição."
+          },
+          "422": {
+            "description": "Erro da validação da lógica de negócio, a mensagem será retornada na resposta.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.BasicErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro Interno do Ecommerce Bank, tente novamente. Caso persista o erro, entrar em contato com o time de desenvolvimento."
+          }
+        }
+      }
+    },
+    "/transacao/pix": {
+      "post": {
+        "tags": [
+          "Transacao"
+        ],
+        "summary": "Criar Transação - Pix",
+        "description": "Permite criar uma transação por pix com os dados informados.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.net.DTOs.Transacao.RequestCreateTransacaoPix"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Recurso criado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.Transacao.ResponseTransacao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Algum parâmetro obrigatório não foi passado, ou os parâmetros passados não estão corretos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.Interceptors.BadRequest.BadRequestErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição."
+          },
+          "422": {
+            "description": "Erro de validação lógica de negócio, a mensagem será retornada na resposta.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.BasicErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro Interno do EcommerceBank, tente novamente. Caso persista o erro, entre em contato com o time de desenvolvimento."
+          }
+        }
+      }
+    },
+    "/transacao": {
+      "get": {
+        "tags": [
+          "Transacao"
+        ],
+        "summary": "Listar Transações",
+        "description": "Retorna a lista de transações no período informado, respeitando os parâmetros de filtragem.",
+        "parameters": [
+          {
+            "name": "PeriodoInicio",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "PeriodoFim",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "Pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "RegistrosPorPagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Status",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recurso obtido com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.Transacao.ResponseTransacaoList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição"
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com time de desenvolvimento."
+          }
+        }
+      }
+    },
+    "/transacao/{identificador}": {
+      "get": {
+        "tags": [
+          "Transacao"
+        ],
+        "summary": "Buscar Transação",
+        "description": "Retorna os detalhes da transação.",
+        "parameters": [
+          {
+            "name": "identificador",
+            "in": "path",
+            "description": "O número identificador único da transação.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recurso obtido com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.net.DTOs.Transacao.ResponseTransacao"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição."
+          },
+          "404": {
+            "description": "Recurso não pode ser encontrado."
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com time de desenvolvimento."
+          }
+        }
+      }
+    },
+    "/transacao/{identificador}/download": {
+      "get": {
+        "tags": [
+          "Transacao"
+        ],
+        "summary": "Download Boleto",
+        "description": "Link para download do boleto (.pdf).",
+        "parameters": [
+          {
+            "name": "identificador",
+            "in": "path",
+            "description": "O número identificador do boleto.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recurso obtido com sucesso."
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição."
+          },
+          "404": {
+            "description": "Recurso não pode ser encontrado."
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com time de desenvolvimento."
+          },
+          "422": {
+            "description": "Erro de validação lógica de negócio, a mensagem será retornada na resposta."
+          }
+        }
+      }
+    },
+    "/transacao/{identificador}/view": {
+      "get": {
+        "tags": [
+          "Transacao"
+        ],
+        "summary": "Visualizar Boleto em PDF",
+        "description": "Retorna o conteudo do boleto em (PDF).",
+        "parameters": [
+          {
+            "name": "identificador",
+            "in": "path",
+            "description": "O número identificador do boleto.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recurso obtido com sucesso."
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição."
+          },
+          "404": {
+            "description": "Recurso não pode ser encontrado."
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com time de desenvolvimento."
+          },
+          "422": {
+            "description": "Erro de validação lógica de negócio, a mensagem será retornada na resposta."
+          }
+        }
+      }
+    },
+    "/transacao/{identificador}/base64": {
+      "get": {
+        "tags": [
+          "Transacao"
+        ],
+        "summary": "Visualizar Boleto em Base64",
+        "description": "Retorna o conteudo do boleto em (base64).",
+        "parameters": [
+          {
+            "name": "identificador",
+            "in": "path",
+            "description": "O HashId identificador do boleto.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recurso obtido com sucesso."
+          },
+          "404": {
+            "description": "Recurso não pode ser encontrado.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com time de desenvolvimento."
+          }
+        }
+      }
+    },
+    "/transacao/{identificador}/postback": {
+      "put": {
+        "tags": [
+          "Transacao"
+        ],
+        "summary": "Reagendar Postback",
+        "description": "Reagenda o envio de postback da transação informada.",
+        "parameters": [
+          {
+            "name": "identificador",
+            "in": "path",
+            "description": "O número identificador único da transação.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Recurso alterado com sucesso."
+          },
+          "401": {
+            "description": "Ausência de credenciais do usuário na requisição."
+          },
+          "404": {
+            "description": "Recurso não pode ser encontrado."
+          },
+          "500": {
+            "description": "Erro interno do EcommerceBank, tente novamente. Caso persista o erro, entrar em contato com time de desenvolvimento."
+          }
+        }
+      }
+    },
+    "/webhook/example": {
+      "get": {
+        "tags": [
+          "WebHook"
+        ],
+        "summary": "Exemplo de resposta enviada via webhook aos usuários",
+        "description": "Este endpoint retorna um exemplo da estrutura JSON enviada aos usuários quando um webhook é disparado.\r\nO webhook notifica sobre mudanças no status de transações.",
+        "responses": {
+          "200": {
+            "description": "Retorna um exemplo da resposta do webhook",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unknown"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unknown"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unknown"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AspNetCore.Mvc.ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "DAL.Enums.StatusTransacaoEnum": {
+        "enum": [
+          "1 - BOLETO_REGISTRADO",
+          "2 - PAGO",
+          "3 - BOLETO_LIQUIDADO_COMPENSADO",
+          "4 - CANCELADO",
+          "5 - EM_PROCESSO",
+          "6 - AUTORIZADO",
+          "7 - AGUARDANDO_PAGAMENTO",
+          "8 - ESTORNADO",
+          "9 - AGUARDANDO_ESTORNO",
+          "10 - RECUSADO",
+          "11 - DEVOLVIDO",
+          "12 - ANALISE",
+          "13 - REVISAO_PAGAMENTO",
+          "14 - SUSPENSO",
+          "15 - EM_DISPUTA",
+          "16 - TRANSFERIDO",
+          "17 - NAO_PAGO",
+          "18 - FINALIZADO",
+          "19 - CONFIRMADO",
+          "20 - REJEITADO"
+        ],
+        "type": "string",
+        "format": "int32"
+      },
+      "DAL.Enums.TipoChaveTransferencia": {
+        "enum": [
+          "1 - TELEFONE",
+          "2 - EMAIL",
+          "3 - DOCUMENTO",
+          "4 - CHAVE_ALEATÓRIA"
+        ],
+        "type": "string",
+        "format": "int32"
+      },
+      "DAL.Enums.TipoOperacao": {
+        "enum": [
+          "1 - BOLETO",
+          "2 - CARTAO_DEBITO",
+          "3 - CARTAO_CREDITO",
+          "4 - PIX",
+          "5 - DEPOSITO",
+          "6 - JUROS",
+          "7 - TRANSFERENCIA_EXTERNA_PIX",
+          "8 - TRANSFERENCIA_INTERNA",
+          "9 - PAGAMENTO_BOLETO",
+          "10 - PAGAMENTO_PIX",
+          "11 - TRANSFERENCIA_EXTERNA_TEDTEV",
+          "12 - DEPOSITO_USDT",
+          "13 - DEPOSITO_PESO"
+        ],
+        "type": "string",
+        "format": "int32"
+      },
+      "TransacaoLinkDto.RequestCreateLinkThreeds": {
+        "required": [
+          "valor"
+        ],
+        "type": "object",
+        "properties": {
+          "valor": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          },
+          "phone": {
+            "maxLength": 13,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "postbackUrl": {
+            "maxLength": 200,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "metadata": {
+            "maxLength": 1000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Unknown": {
+        "type": "object",
+        "properties": {
+          "transacaoId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nossoNumero": {
+            "type": "string",
+            "nullable": true
+          },
+          "valor": {
+            "type": "number",
+            "format": "double"
+          },
+          "valorBruto": {
+            "type": "number",
+            "format": "double"
+          },
+          "statusAnterior": {
+            "$ref": "#/components/schemas/DAL.Enums.StatusTransacaoEnum"
+          },
+          "statusAtual": {
+            "$ref": "#/components/schemas/DAL.Enums.StatusTransacaoEnum"
+          },
+          "tentativaAtual": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "metaData": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoTransacao": {
+            "$ref": "#/components/schemas/DAL.Enums.TipoOperacao"
+          }
+        },
+        "additionalProperties": false
+      },
+      "api.net.Controllers.TransacaoController+ResponseLinkPagamento": {
+        "type": "object",
+        "properties": {
+          "link": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "api.net.DTOs.BasicErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "api.net.DTOs.Cotacao.ValorConvertidoResponse": {
+        "type": "object",
+        "properties": {
+          "valorOriginal": {
+            "type": "number",
+            "description": "Valor original antes da conversão",
+            "format": "double"
+          },
+          "valorConvertido": {
+            "type": "number",
+            "description": "Valor após a conversão",
+            "format": "double"
+          },
+          "moedaOrigem": {
+            "type": "string",
+            "description": "Moeda de origem do valor",
+            "nullable": true
+          },
+          "moedaDestino": {
+            "type": "string",
+            "description": "Moeda de destino do valor",
+            "nullable": true
+          },
+          "cotacao": {
+            "type": "number",
+            "description": "Cotação utilizada na conversão",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Resposta contendo o resultado de uma conversão de valor"
+      },
+      "api.net.DTOs.Cotacao.ValorRequest": {
+        "required": [
+          "valor"
+        ],
+        "type": "object",
+        "properties": {
+          "valor": {
+            "type": "number",
+            "description": "Valor a ser convertido",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Requisição contendo um valor a ser convertido"
+      },
+      "api.net.DTOs.Transacao.HistoricoStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          },
+          "dataAtualizacao": {
+            "type": "string",
+            "description": "",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "api.net.DTOs.Transacao.RequestCreateCashout": {
+        "required": [
+          "chave",
+          "nomeCliente",
+          "tipoChave",
+          "valor"
+        ],
+        "type": "object",
+        "properties": {
+          "valor": {
+            "type": "number",
+            "format": "double"
+          },
+          "nomeCliente": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "tipoChave": {
+            "$ref": "#/components/schemas/DAL.Enums.TipoChaveTransferencia"
+          },
+          "chave": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "api.net.DTOs.Transacao.RequestCreateTransacaoBoleto": {
+        "required": [
+          "documento",
+          "valor"
+        ],
+        "type": "object",
+        "properties": {
+          "nome": {
+            "maxLength": 60,
+            "minLength": 3,
+            "type": "string",
+            "nullable": true
+          },
+          "documento": {
+            "maxLength": 14,
+            "minLength": 11,
+            "type": "string"
+          },
+          "valor": {
+            "type": "number",
+            "format": "double"
+          },
+          "vencimento": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "postbackUrl": {
+            "maxLength": 200,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "metadata": {
+            "maxLength": 1000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "api.net.DTOs.Transacao.RequestCreateTransacaoPix": {
+        "required": [
+          "valor"
+        ],
+        "type": "object",
+        "properties": {
+          "nome": {
+            "maxLength": 60,
+            "minLength": 3,
+            "type": "string",
+            "nullable": true
+          },
+          "documento": {
+            "maxLength": 14,
+            "minLength": 11,
+            "type": "string",
+            "nullable": true
+          },
+          "valor": {
+            "type": "number",
+            "format": "double"
+          },
+          "postbackUrl": {
+            "maxLength": 200,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "metadata": {
+            "maxLength": 1000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "vencimento": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "api.net.DTOs.Transacao.ResponseTransacao": {
+        "type": "object",
+        "properties": {
+          "identificador": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          },
+          "nomeCliente": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "documentoCliente": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "dataCriacao": {
+            "type": "string",
+            "description": "",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dataUltimoAlteracao": {
+            "type": "string",
+            "description": "",
+            "format": "date-time",
+            "nullable": true
+          },
+          "valorBruto": {
+            "type": "number",
+            "description": "",
+            "format": "double"
+          },
+          "valorRecebivel": {
+            "type": "number",
+            "description": "",
+            "format": "double"
+          },
+          "boletoCodigoDeBarra": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "boletoLinhaDigitavel": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "pixChavePagamento": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "hashId": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "estabelecimento": {
+            "description": "",
+            "nullable": true
+          },
+          "tipoOperacao": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          },
+          "status": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          },
+          "historicoStatus": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/api.net.DTOs.Transacao.HistoricoStatus"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "vencimento": {
+            "type": "string",
+            "description": "",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isDebito": {
+            "type": "boolean",
+            "description": ""
+          },
+          "tipoChaveTransferenciaPix": {
+            "$ref": "#/components/schemas/DAL.Enums.TipoChaveTransferencia"
+          },
+          "chaveTransferenciaPix": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "nossaCotacao": {
+            "type": "number",
+            "description": "Nossa cotação de conversão utilizada para a moeda",
+            "format": "double",
+            "nullable": true
+          },
+          "valorConvertidoMoeda": {
+            "type": "number",
+            "description": "Valor convertido para a moeda do estabelecimento",
+            "format": "double",
+            "nullable": true
+          },
+          "usuario": {
+            "$ref": "#/components/schemas/api.net.DTOs.Usuario.ResponseUsuario"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "api.net.DTOs.Transacao.ResponseTransacaoList": {
+        "type": "object",
+        "properties": {
+          "transacoes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/api.net.DTOs.Transacao.ResponseTransacao"
+            },
+            "nullable": true
+          },
+          "numeroDePaginas": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numeroDeRegistros": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "api.net.DTOs.Usuario.ResponseUsuario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nome": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "api.net.Interceptors.BadRequest.BadRequestErrorResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/api.net.Interceptors.BadRequest.ErrorDescriptor"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "api.net.Interceptors.BadRequest.ErrorDescriptor": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string",
+            "nullable": true
+          },
+          "errorDescription": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "ApiKey": {
+        "type": "apiKey",
+        "name": "api-key",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKey": [ ]
+    }
+  ]
+}

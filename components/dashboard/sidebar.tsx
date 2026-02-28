@@ -18,14 +18,13 @@ import {
   IconLayoutDashboard,
   IconList,
   IconPlus,
-  IconWallet,
   IconLogout,
-  IconCurrencyDollar,
   IconX,
   IconSun,
   IconMoon,
   IconDeviceDesktop,
   IconSwitchHorizontal,
+  IconCurrencyDollar,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
@@ -45,16 +44,11 @@ const navItems = [
     href: "/dashboard/transacoes/crear",
     icon: IconPlus,
   },
-  // {
-  //   label: "Transferencia (Cashout)",
-  //   href: "/dashboard/cashout",
-  //   icon: IconCurrencyDollar,
-  // },
-  // {
-  //   label: "Saldo",
-  //   href: "/dashboard/saldo",
-  //   icon: IconWallet,
-  // },
+  {
+    label: "Transferencia (Cashout)",
+    href: "/dashboard/cashout",
+    icon: IconCurrencyDollar,
+  }
 ];
 
 interface DashboardSidebarProps {

@@ -109,64 +109,66 @@ export default function CashoutPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
-            <div className="space-y-2">
-              <Label htmlFor="valor">Valor (R$) *</Label>
-              <Input
-                id="valor"
-                type="number"
-                step="0.01"
-                min="0.01"
-                placeholder="0.00"
-                value={valor}
-                onChange={(e) => setValor(e.target.value)}
-                required
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="valor">Valor (R$) *</Label>
+                <Input
+                  id="valor"
+                  type="number"
+                  step="0.01"
+                  min="0.01"
+                  placeholder="0.00"
+                  value={valor}
+                  onChange={(e) => setValor(e.target.value)}
+                  required
+                />
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="nomeCliente">Nombre del Cliente *</Label>
-              <Input
-                id="nomeCliente"
-                placeholder="Nombre completo"
-                maxLength={100}
-                value={nomeCliente}
-                onChange={(e) => setNomeCliente(e.target.value)}
-                required
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="nomeCliente">Nombre del Cliente *</Label>
+                <Input
+                  id="nomeCliente"
+                  placeholder="Nombre completo"
+                  maxLength={100}
+                  value={nomeCliente}
+                  onChange={(e) => setNomeCliente(e.target.value)}
+                  required
+                />
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="tipoChave">Tipo de Clave *</Label>
-              <Select
-                value={String(tipoChave)}
-                onValueChange={(v) => setTipoChave(parseInt(v, 10))}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Seleccionar tipo" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(TIPO_CHAVE_TRANSFERENCIA).map(
-                    ([key, label]) => (
-                      <SelectItem key={key} value={key}>
-                        {label}
-                      </SelectItem>
-                    )
-                  )}
-                </SelectContent>
-              </Select>
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="tipoChave">Tipo de Clave *</Label>
+                <Select
+                  value={String(tipoChave)}
+                  onValueChange={(v) => setTipoChave(parseInt(v, 10))}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Seleccionar tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(TIPO_CHAVE_TRANSFERENCIA).map(
+                      ([key, label]) => (
+                        <SelectItem key={key} value={key}>
+                          {label}
+                        </SelectItem>
+                      )
+                    )}
+                  </SelectContent>
+                </Select>
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="chave">Clave Pix *</Label>
-              <Input
-                id="chave"
-                placeholder="Clave pix del destinatario"
-                maxLength={50}
-                value={chave}
-                onChange={(e) => setChave(e.target.value)}
-                required
-              />
+              <div className="space-y-2">
+                <Label htmlFor="chave">Clave Pix *</Label>
+                <Input
+                  id="chave"
+                  placeholder="Clave pix del destinatario"
+                  maxLength={50}
+                  value={chave}
+                  onChange={(e) => setChave(e.target.value)}
+                  required
+                />
+              </div>
             </div>
 
             {error && <p className="text-sm text-destructive">{error}</p>}

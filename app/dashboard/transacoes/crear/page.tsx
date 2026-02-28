@@ -166,96 +166,100 @@ export default function CrearTransacaoPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
-            <div className="space-y-2">
-              <Label htmlFor="valor">Valor (R$) *</Label>
-              <Input
-                id="valor"
-                type="number"
-                step="0.01"
-                min="0.01"
-                placeholder="0.00"
-                value={valor}
-                onChange={(e) => setValor(e.target.value)}
-                required
-              />
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="valor">Valor (R$) *</Label>
+                <Input
+                  id="valor"
+                  type="number"
+                  step="0.01"
+                  min="0.01"
+                  placeholder="0.00"
+                  value={valor}
+                  onChange={(e) => setValor(e.target.value)}
+                  required
+                />
+              </div>
+
+              {tipo !== "cartao" && (
+                <div className="space-y-2">
+                  <Label htmlFor="nome">Nombre del Cliente</Label>
+                  <Input
+                    id="nome"
+                    placeholder="Nombre completo"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                </div>
+              )}
+
+              {(tipo === "pix" || tipo === "boleto") && (
+                <div className="space-y-2">
+                  <Label htmlFor="documento">
+                    Documento (CPF/CNPJ) {tipo === "boleto" ? "*" : ""}
+                  </Label>
+                  <Input
+                    id="documento"
+                    placeholder="CPF ou CNPJ"
+                    maxLength={14}
+                    value={documento}
+                    onChange={(e) => setDocumento(e.target.value)}
+                    required={tipo === "boleto"}
+                  />
+                </div>
+              )}
+
+              {tipo === "cartao" && (
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Teléfono</Label>
+                  <Input
+                    id="phone"
+                    placeholder="+5511999999999"
+                    maxLength={13}
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+              )}
+
+              {tipo !== "cartao" && (
+                <div className="space-y-2">
+                  <Label htmlFor="vencimento">Vencimiento</Label>
+                  <Input
+                    id="vencimento"
+                    type="date"
+                    value={vencimento}
+                    onChange={(e) => setVencimento(e.target.value)}
+                  />
+                </div>
+              )}
             </div>
-
-            {tipo !== "cartao" && (
-              <div className="space-y-2">
-                <Label htmlFor="nome">Nombre del Cliente</Label>
-                <Input
-                  id="nome"
-                  placeholder="Nombre completo"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-              </div>
-            )}
-
-            {(tipo === "pix" || tipo === "boleto") && (
-              <div className="space-y-2">
-                <Label htmlFor="documento">
-                  Documento (CPF/CNPJ) {tipo === "boleto" ? "*" : ""}
-                </Label>
-                <Input
-                  id="documento"
-                  placeholder="CPF ou CNPJ"
-                  maxLength={14}
-                  value={documento}
-                  onChange={(e) => setDocumento(e.target.value)}
-                  required={tipo === "boleto"}
-                />
-              </div>
-            )}
-
-            {tipo === "cartao" && (
-              <div className="space-y-2">
-                <Label htmlFor="phone">Teléfono</Label>
-                <Input
-                  id="phone"
-                  placeholder="+5511999999999"
-                  maxLength={13}
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-            )}
-
-            {tipo !== "cartao" && (
-              <div className="space-y-2">
-                <Label htmlFor="vencimento">Vencimiento</Label>
-                <Input
-                  id="vencimento"
-                  type="date"
-                  value={vencimento}
-                  onChange={(e) => setVencimento(e.target.value)}
-                />
-              </div>
-            )}
 
             <Separator />
 
-            <div className="space-y-2">
-              <Label htmlFor="postbackUrl">Postback URL</Label>
-              <Input
-                id="postbackUrl"
-                type="url"
-                placeholder="https://..."
-                value={postbackUrl}
-                onChange={(e) => setPostbackUrl(e.target.value)}
-              />
-            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="postbackUrl">Postback URL</Label>
+                <Input
+                  id="postbackUrl"
+                  type="url"
+                  placeholder="https://..."
+                  value={postbackUrl}
+                  onChange={(e) => setPostbackUrl(e.target.value)}
+                />
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="metadata">Metadata</Label>
-              <Input
-                id="metadata"
-                placeholder="Datos adicionales (max 1000 chars)"
-                maxLength={1000}
-                value={metadata}
-                onChange={(e) => setMetadata(e.target.value)}
-              />
+              <div className="space-y-2">
+                <Label htmlFor="metadata">Metadata</Label>
+                <Input
+                  id="metadata"
+                  placeholder="Datos adicionales (max 1000 chars)"
+                  maxLength={1000}
+                  value={metadata}
+                  onChange={(e) => setMetadata(e.target.value)}
+                />
+              </div>
             </div>
 
             {error && <p className="text-sm text-destructive">{error}</p>}
